@@ -1,0 +1,1 @@
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03e7", SYMLINK="cam", MODE="0666"

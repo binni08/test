@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="roas">
+  
+  <material name="Black"><color rgba="${1/255} ${1/255} ${1/255} 1.0"/></material>
+
+  <xacro:property name="PI" value="3.1415926535897931"/>
+
+  <xacro:include filename="$(find roas_bringup2)/urdf/include/vlp16.urdf.xacro"/>
+
+  <xacro:include filename="$(find roas_bringup2)/urdf/include/oakd.urdf.xacro"/>
+  <!-- Frame -->
+
+  <link name="top_structure">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://roas_bringup2/meshes/top_structure_roas.STL" />
+    </geometry>
+    <material name="grey" >
+        <color rgba="0.2 0.2 0.2 1.0" />
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <mesh filename="package://roas_bringup2/meshes/top_structure_roas.STL" />
+    </geometry>
+  </collision>
+  </link>
+
+  <joint name="top_structure_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="top_structure" />
+    <origin xyz="0.0435 0 -0.3597" rpy="0 0 0" />
+  </joint>
+
+  <xacro:sensor_vlp16 parent="top_structure" name="velodyne">
+    <origin xyz="0.3627 0 0.6868" rpy="0 0 0"/>
+  </xacro:sensor_vlp16>
+
+  <xacro:oakd model="pro" parent_link="top_structure" name="front_oakd">
+    <origin xyz="0.3836 0 0.6368" rpy="0 0 0"/>
+  </xacro:oakd>
+  
+  <xacro:oakd model="pro" parent_link="top_structure" name="rear_oakd">
+    <origin xyz="-0.0667 0 0.998" rpy="0 0 0"/>
+  </xacro:oakd>
+</robot>
